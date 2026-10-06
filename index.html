@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Проверка за пять минут</title>
+<style>
+:root{--bg:#eef2f0;--ink:#1c2623;--mute:#5b6b66;--card:#fff;--line:#c9d4d0;--acc:#1f5f54;--warn:#a8481f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121917;--ink:#e6eeeb;--mute:#93a49e;--card:#1b2421;--line:#34443f;--acc:#6cc3b2;--warn:#e08a5c}}
+:root[data-theme="dark"]{--bg:#121917;--ink:#e6eeeb;--mute:#93a49e;--card:#1b2421;--line:#34443f;--acc:#6cc3b2;--warn:#e08a5c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Georgia,"Times New Roman",serif}
+main{max-width:640px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:2rem;line-height:1.15;margin:0 0 8px;letter-spacing:-.01em}
+.lead{color:var(--mute);margin:0 0 24px}
+textarea{width:100%;min-height:84px;padding:12px;border:1.5px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);font:inherit;resize:vertical}
+textarea:focus,button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.step{background:var(--card);border-left:4px solid var(--line);padding:14px 16px;margin:14px 0;border-radius:0 6px 6px 0}
+.step.done{border-left-color:var(--acc)}
+.step label{display:flex;gap:12px;cursor:pointer;align-items:flex-start}
+.step input{width:22px;height:22px;margin-top:3px;accent-color:var(--acc);flex:none}
+.step b{display:block}
+.step span{color:var(--mute);font-size:.94rem}
+.step a{color:var(--acc)}
+.q{font-style:italic;color:var(--ink)}
+.note{width:100%;margin-top:10px;padding:8px 10px;border:1px solid var(--line);border-radius:5px;background:transparent;color:var(--ink);font:inherit;font-size:.94rem}
+.gauge{background:var(--card);padding:18px;border-radius:6px;margin-top:26px;border:1.5px solid var(--line)}
+input[type=range]{width:100%;accent-color:var(--acc)}
+.big{font-size:2.6rem;font-weight:bold;line-height:1}
+.verdict{margin:10px 0 0}
+button{font:inherit;padding:10px 16px;border:1.5px solid var(--acc);background:transparent;color:var(--acc);border-radius:6px;cursor:pointer;margin-top:14px}
+button:hover{background:var(--acc);color:var(--bg)}
+footer{margin-top:30px;color:var(--mute);font-size:.88rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Проверка утверждения за пять минут</h1>
+<p class="lead">Как пользоваться:<br>1. Вставь утверждение в поле ниже.<br>2. Выполни каждый шаг сам (где есть ссылка, она откроет поиск). Запиши в поле, что нашёл, и поставь галочку.<br>3. Внизу выбери, насколько ты теперь веришь, и скопируй итог.<br>Страница ничего не отправляет и не хранит.</p>
+
+<textarea id="claim" placeholder="Например: «Учёные доказали, что …»" aria-label="Утверждение"></textarea>
+
+<div id="steps"></div>
+
+<div class="gauge">
+  <label for="conf"><b>Итог: насколько ты теперь веришь утверждению?</b><br><span style="color:var(--mute);font-size:.94rem">Подвинь ползунок после того, как прошёл шаги.</span></label>
+  <input id="conf" type="range" min="0" max="100" value="50">
+  <div class="big"><span id="pct">50</span>%</div>
+  <p class="verdict" id="verdict"></p>
+  <p class="verdict" id="progress" style="color:var(--mute);font-size:.94rem"></p>
+  <button id="copy">Скопировать итог</button>
+  <button id="reset" style="margin-left:8px">Начать заново</button>
+</div>
+
+<footer>Не «правда или ложь», а «на сколько процентов я верю, пока нет новых данных».</footer>
+</main>
+<script>
+const S=[
+["Найди первоисточник","Исследование, документ, запись выступления. Не «пишут, что…». Нет ссылки на источник — тревожный знак.",(c)=>"https://www.google.com/search?q="+encodeURIComponent(c+" источник исследование"),"Искать источник"],
+["Проверь, что там сказано на самом деле","Заголовок часто громче текста. Смотри размер выборки, дату, оговорки.",null],
+["Спроси, кому это выгодно","Не чтобы отмахнуться, а чтобы понять, что могли приукрасить.",null],
+["Поищи опровержение","Ищи не подтверждения, а «не работает», «критика», «фейк».",(c)=>"https://www.google.com/search?q="+encodeURIComponent(c+" критика опровержение"),"Искать опровержение"],
+["Заметь свою реакцию","Сильная радость или злость — повод проверить строже. Утверждение могли писать ради этой эмоции.",null],
+["Оцени уверенность честно","Подвинь ползунок ниже. 100% и 0% почти никогда не бывают честными.",null]
+];
+const box=document.getElementById('steps'),claim=document.getElementById('claim');
+const boxes=[],notes=[];
+S.forEach((s,i)=>{
+  const d=document.createElement('div');d.className='step';
+  const l=document.createElement('label');
+  const cb=document.createElement('input');cb.type='checkbox';
+  const t=document.createElement('div');
+  t.innerHTML='<b>'+s[0]+'</b><span>'+s[1]+'</span>';
+  if(s[2]){const a=document.createElement('a');a.target='_blank';a.rel='noopener';a.textContent=' '+s[3];a.href='#';
+    a.addEventListener('click',e=>{e.preventDefault();const c=claim.value.trim();if(!c){claim.focus();claim.placeholder='Сначала вставь утверждение';return}window.open(s[2](c),'_blank','noopener')});
+    t.querySelector('span').appendChild(a);}
+  cb.addEventListener('change',()=>{d.classList.toggle('done',cb.checked);upd()});
+  l.append(cb,t);d.append(l);
+  const nt=document.createElement('input');nt.type='text';nt.className='note';nt.placeholder='Что нашёл? (необязательно)';nt.setAttribute('aria-label','Заметка к шагу: '+s[0]);
+  d.append(nt);notes.push(nt);
+  box.append(d);boxes.push(cb);
+});
+const conf=document.getElementById('conf');
+function upd(){
+  const n=boxes.filter(b=>b.checked).length,v=+conf.value;
+  document.getElementById('pct').textContent=v;
+  let m;
+  if(v>=95||v<=5)m='Слишком уверенно. Что могло бы тебя переубедить?';
+  else if(v>=70)m='Скорее верю. Готов изменить мнение при новых данных.';
+  else if(v>=35)m='Не знаю. Это тоже нормальный ответ.';
+  else m='Скорее не верю. Не пересылай, пока не найдёшь подтверждение.';
+  document.getElementById('verdict').textContent=m;
+  document.getElementById('progress').textContent='Пройдено шагов: '+n+' из '+boxes.length+(n===boxes.length?'. Все шаги пройдены: теперь выбери уверенность и скопируй итог.':(n<4&&(v>=80||v<=20)?'. Для такой уверенности проверок маловато.':'.'));
+}
+conf.addEventListener('input',upd);upd();
+document.getElementById('reset').addEventListener('click',()=>{
+  claim.value='';conf.value=50;
+  notes.forEach(n=>n.value='');boxes.forEach(b=>{b.checked=false;b.closest('.step').classList.remove('done')});
+  document.getElementById('copy').textContent='Скопировать итог';
+  upd();window.scrollTo({top:0});claim.focus();
+});
+document.getElementById('copy').addEventListener('click',e=>{
+  const lines=S.map((x,i)=>notes[i].value.trim()?('- '+x[0]+': '+notes[i].value.trim()):null).filter(Boolean);
+  const txt='Утверждение: '+(claim.value.trim()||'—')+'\n'+lines.join('\n')+(lines.length?'\n':'')+'Уверенность: '+conf.value+'%\nПройдено шагов: '+boxes.filter(b=>b.checked).length+' из '+boxes.length;
+  try{navigator.clipboard.writeText(txt);e.target.textContent='Скопировано'}catch(x){e.target.textContent='Не удалось скопировать'}
+});
+</script>
+</body>
+</html>
