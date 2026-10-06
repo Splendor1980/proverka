@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Apgalvojuma pārbaude piecās minūtēs</title>
+<meta name="description" content="Bezmaksas palīgs: seši soļi, lai pārbaudītu apšaubāmu apgalvojumu. Bez reģistrācijas.">
+<link rel="canonical" href="https://splendor1980.github.io/proverka/lv/"><link rel="alternate" hreflang="ru" href="https://splendor1980.github.io/proverka/"><link rel="alternate" hreflang="en" href="https://splendor1980.github.io/proverka/en/"><link rel="alternate" hreflang="lv" href="https://splendor1980.github.io/proverka/lv/"><link rel="alternate" hreflang="x-default" href="https://splendor1980.github.io/proverka/">
+<meta property="og:type" content="website"><meta property="og:title" content="Apgalvojuma pārbaude piecās minūtēs"><meta property="og:description" content="Bezmaksas palīgs: seši soļi, lai pārbaudītu apšaubāmu apgalvojumu. Bez reģistrācijas."><meta property="og:url" content="https://splendor1980.github.io/proverka/lv/"><meta property="og:locale" content="lv_LV">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%8E%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#eef2f0;--ink:#1c2623;--mute:#5b6b66;--card:#fff;--line:#c9d4d0;--acc:#1f5f54;--warn:#a8481f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121917;--ink:#e6eeeb;--mute:#93a49e;--card:#1b2421;--line:#34443f;--acc:#6cc3b2;--warn:#e08a5c}}
+:root[data-theme="dark"]{--bg:#121917;--ink:#e6eeeb;--mute:#93a49e;--card:#1b2421;--line:#34443f;--acc:#6cc3b2;--warn:#e08a5c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Georgia,"Times New Roman",serif}
+main{max-width:640px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:2rem;line-height:1.15;margin:0 0 8px;letter-spacing:-.01em}
+.lead{color:var(--mute);margin:0 0 24px}
+textarea{width:100%;min-height:84px;padding:12px;border:1.5px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);font:inherit;resize:vertical}
+textarea:focus,button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.step{background:var(--card);border-left:4px solid var(--line);padding:14px 16px;margin:14px 0;border-radius:0 6px 6px 0}
+.step.done{border-left-color:var(--acc)}
+.step label{display:flex;gap:12px;cursor:pointer;align-items:flex-start}
+.step input[type=checkbox]{width:22px;height:22px;margin-top:3px;accent-color:var(--acc);flex:none}
+.step b{display:block}
+.step span{color:var(--mute);font-size:.94rem}
+.step a{color:var(--acc)}
+.q{font-style:italic;color:var(--ink)}
+.note{width:100%;margin-top:10px;padding:8px 10px;border:1px solid var(--line);border-radius:5px;background:transparent;color:var(--ink);font:inherit;font-size:.94rem}
+.gauge{background:var(--card);padding:18px;border-radius:6px;margin-top:26px;border:1.5px solid var(--line)}
+input[type=range]{width:100%;accent-color:var(--acc)}
+.big{font-size:2.6rem;font-weight:bold;line-height:1}
+.verdict{margin:10px 0 0}
+button{font:inherit;padding:10px 16px;border:1.5px solid var(--acc);background:transparent;color:var(--acc);border-radius:6px;cursor:pointer;margin-top:14px}
+button:hover{background:var(--acc);color:var(--bg)}
+footer{margin-top:30px;color:var(--mute);font-size:.88rem}
+.lang{display:flex;gap:14px;justify-content:flex-end;margin-bottom:10px;font-size:.95rem}.lang a{color:var(--acc)}.lang b{color:var(--mute)}
+</style>
+</head>
+<body>
+<main>
+<nav class="lang" aria-label="Language"><a href="/proverka/" hreflang="ru" lang="ru">РУ</a> <a href="/proverka/en/" hreflang="en" lang="en">EN</a> <b>LV</b></nav>
+<h1>Apgalvojuma pārbaude piecās minūtēs</h1>
+<p class="lead">Kā lietot:<br>1. Ievieto apgalvojumu laukā zemāk.<br>2. Izpildi katru soli pats (kur ir saite, tā atver meklēšanu). Ieraksti laukā, ko atradi, un atzīmē rūtiņu.<br>3. Apakšā izvēlies, cik ļoti tagad tici, un nokopē rezultātu.<br>Ievadītais teksts netiek sūtīts vai saglabāts. Vietne tikai skaita apmeklējumus (bez sīkdatnēm).</p>
+<textarea id="claim" placeholder="Piemēram: &quot;Zinātnieki pierādījuši, ka…&quot;" aria-label="Apgalvojuma pārbaude piecās minūtēs"></textarea>
+<div id="steps">
+<div class="step"><label><input type="checkbox"><div><b>Atrodi oriģinālo avotu</b><span>Pētījums, dokuments, uzstāšanās ieraksts. Nevis &quot;raksta, ka…&quot;. Ja avota nav, tā ir brīdinājuma zīme. <a href="#" data-q="1">Meklēt avotu</a></span></div></label><input type="text" class="note" placeholder="Ko atradi? (nav obligāti)" aria-label="Atrodi oriģinālo avotu"></div>
+<div class="step"><label><input type="checkbox"><div><b>Pārbaudi, ko tur patiesībā saka</b><span>Virsraksts bieži ir skaļāks par tekstu. Skaties izlases lielumu, datumu, atrunas.</span></div></label><input type="text" class="note" placeholder="Ko atradi? (nav obligāti)" aria-label="Pārbaudi, ko tur patiesībā saka"></div>
+<div class="step"><label><input type="checkbox"><div><b>Pajautā, kam tas ir izdevīgi</b><span>Ne lai atmestu ar roku, bet lai saprastu, ko varēja izpušķot.</span></div></label><input type="text" class="note" placeholder="Ko atradi? (nav obligāti)" aria-label="Pajautā, kam tas ir izdevīgi"></div>
+<div class="step"><label><input type="checkbox"><div><b>Meklē atspēkojumu</b><span>Meklē nevis apstiprinājumu, bet &quot;nedarbojas&quot;, &quot;kritika&quot;, &quot;viltojums&quot;. <a href="#" data-q="2">Meklēt atspēkojumu</a></span></div></label><input type="text" class="note" placeholder="Ko atradi? (nav obligāti)" aria-label="Meklē atspēkojumu"></div>
+<div class="step"><label><input type="checkbox"><div><b>Pamani savu reakciju</b><span>Spēcīgs prieks vai dusmas ir iemesls pārbaudīt stingrāk. Apgalvojums varēja būt uzrakstīts tieši šīs emocijas dēļ.</span></div></label><input type="text" class="note" placeholder="Ko atradi? (nav obligāti)" aria-label="Pamani savu reakciju"></div>
+<div class="step"><label><input type="checkbox"><div><b>Godīgi novērtē pārliecību</b><span>Pabīdi slīdni zemāk. 100% un 0% gandrīz nekad nav godīgi.</span></div></label><input type="text" class="note" placeholder="Ko atradi? (nav obligāti)" aria-label="Godīgi novērtē pārliecību"></div>
+</div>
+<div class="gauge">
+  <label for="conf"><b>Rezultāts: cik ļoti tu tagad tici apgalvojumam?</b><br><span style="color:var(--mute);font-size:.94rem">Pabīdi slīdni pēc soļu izpildes.</span></label>
+  <input id="conf" type="range" min="0" max="100" value="50">
+  <div class="big"><span id="pct">50</span>%</div>
+  <p class="verdict" id="verdict"></p>
+  <p class="verdict" id="progress" style="color:var(--mute);font-size:.94rem"></p>
+  <button id="copy">Nokopēt rezultātu</button>
+  <button id="reset" style="margin-left:8px">Sākt no jauna</button>
+</div>
+<footer>Nevis &quot;patiesi vai nepatiesi&quot;, bet &quot;cik procentu es ticu, kamēr nav jaunu datu&quot;.</footer>
+</main>
+<script>
+const L={"ph": "Piemēram: \"Zinātnieki pierādījuši, ka…\"", "nph": "Ko atradi? (nav obligāti)", "gh": "Rezultāts: cik ļoti tu tagad tici apgalvojumam?", "gs": "Pabīdi slīdni pēc soļu izpildes.", "copy": "Nokopēt rezultātu", "reset": "Sākt no jauna", "foot": "Nevis \"patiesi vai nepatiesi\", bet \"cik procentu es ticu, kamēr nav jaunu datu\".", "vo": "Pārāk pārliecinoši. Kas varētu likt pārdomāt?", "vh": "Drīzāk ticu. Gatavs mainīt viedokli, ja būs jauni dati.", "vm": "Nezinu. Arī tā ir normāla atbilde.", "vl": "Drīzāk neticu. Nesūti tālāk, kamēr neatrodi apstiprinājumu.", "prog": "Veikti soļi: {n} no {t}", "pall": "Visi soļi veikti: tagad izvēlies pārliecību un nokopē rezultātu.", "pfew": "Tik lielai pārliecībai pārbaužu ir par maz.", "copied": "Nokopēts", "cfail": "Neizdevās nokopēt", "need": "Vispirms ievieto apgalvojumu", "cl": "Apgalvojums", "cf": "Pārliecība", "q1": "avots pētījums", "q2": "kritika atspēkojums", "lang": "lv", "root": false, "base": "/proverka/"};
+let go=false;
+document.querySelectorAll('.lang a').forEach(a=>a.addEventListener('click',()=>{try{sessionStorage.setItem('lng','1')}catch(e){}}));
+if(L.root){let seen=null;try{seen=sessionStorage.getItem('lng')}catch(e){}
+  const n=(navigator.language||'').slice(0,2);
+  if(!seen&&(n==='en'||n==='lv')){go=true;location.replace(L.base+n+'/')}}
+if(!go){try{new Image().src='https://tally.yuki.sh/hits/github@Splendor1980/proverka-'+L.lang+'.svg'}catch(e){}}
+const claim=document.getElementById('claim'),conf=document.getElementById('conf');
+const boxes=[...document.querySelectorAll('.step input[type=checkbox]')],notes=[...document.querySelectorAll('.note')];
+const titles=[...document.querySelectorAll('.step > label b')].map(b=>b.textContent);
+document.querySelectorAll('a[data-q]').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();const c=claim.value.trim();
+  if(!c){claim.focus();claim.placeholder=L.need;return}
+  window.open('https://www.google.com/search?q='+encodeURIComponent(c+' '+L['q'+a.dataset.q]),'_blank','noopener');
+}));
+boxes.forEach(b=>b.addEventListener('change',()=>{b.closest('.step').classList.toggle('done',b.checked);upd()}));
+function upd(){
+  const n=boxes.filter(b=>b.checked).length,v=+conf.value;
+  document.getElementById('pct').textContent=v;
+  document.getElementById('verdict').textContent=(v>=95||v<=5)?L.vo:v>=70?L.vh:v>=35?L.vm:L.vl;
+  let p=L.prog.replace('{n}',n).replace('{t}',boxes.length);
+  if(n===boxes.length)p+='. '+L.pall;else if(n<4&&(v>=80||v<=20))p+='. '+L.pfew;
+  document.getElementById('progress').textContent=p;
+}
+conf.addEventListener('input',upd);upd();
+document.getElementById('reset').addEventListener('click',()=>{
+  claim.value='';conf.value=50;notes.forEach(n=>n.value='');
+  boxes.forEach(b=>{b.checked=false;b.closest('.step').classList.remove('done')});
+  document.getElementById('copy').textContent=L.copy;
+  upd();window.scrollTo({top:0});claim.focus();
+});
+document.getElementById('copy').addEventListener('click',e=>{
+  const lines=titles.map((t,i)=>notes[i].value.trim()?'- '+t+': '+notes[i].value.trim():null).filter(Boolean);
+  const txt=L.cl+': '+(claim.value.trim()||'—')+'\n'+lines.join('\n')+(lines.length?'\n':'')+L.cf+': '+conf.value+'%\n'+L.prog.replace('{n}',boxes.filter(b=>b.checked).length).replace('{t}',boxes.length);
+  try{navigator.clipboard.writeText(txt);e.target.textContent=L.copied}catch(x){e.target.textContent=L.cfail}
+});
+
+</script>
+</body>
+</html>
