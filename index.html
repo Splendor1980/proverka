@@ -3,7 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Проверка за пять минут</title>
+<title>Проверка утверждения за пять минут</title>
+<meta name="description" content="Бесплатная страница-помощник: шесть шагов, чтобы проверить сомнительное утверждение. Без регистрации.">
+<link rel="canonical" href="https://splendor1980.github.io/proverka/"><link rel="alternate" hreflang="ru" href="https://splendor1980.github.io/proverka/"><link rel="alternate" hreflang="en" href="https://splendor1980.github.io/proverka/en/"><link rel="alternate" hreflang="lv" href="https://splendor1980.github.io/proverka/lv/"><link rel="alternate" hreflang="x-default" href="https://splendor1980.github.io/proverka/">
+<meta property="og:type" content="website"><meta property="og:title" content="Проверка утверждения за пять минут"><meta property="og:description" content="Бесплатная страница-помощник: шесть шагов, чтобы проверить сомнительное утверждение. Без регистрации."><meta property="og:url" content="https://splendor1980.github.io/proverka/"><meta property="og:locale" content="ru_RU">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%8E%3C/text%3E%3C/svg%3E">
 <style>
 :root{--bg:#eef2f0;--ink:#1c2623;--mute:#5b6b66;--card:#fff;--line:#c9d4d0;--acc:#1f5f54;--warn:#a8481f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121917;--ink:#e6eeeb;--mute:#93a49e;--card:#1b2421;--line:#34443f;--acc:#6cc3b2;--warn:#e08a5c}}
@@ -32,17 +36,23 @@ input[type=range]{width:100%;accent-color:var(--acc)}
 button{font:inherit;padding:10px 16px;border:1.5px solid var(--acc);background:transparent;color:var(--acc);border-radius:6px;cursor:pointer;margin-top:14px}
 button:hover{background:var(--acc);color:var(--bg)}
 footer{margin-top:30px;color:var(--mute);font-size:.88rem}
+.lang{display:flex;gap:14px;justify-content:flex-end;margin-bottom:10px;font-size:.95rem}.lang a{color:var(--acc)}.lang b{color:var(--mute)}
 </style>
 </head>
 <body>
 <main>
+<nav class="lang" aria-label="Language"><b>РУ</b> <a href="/proverka/en/" hreflang="en" lang="en">EN</a> <a href="/proverka/lv/" hreflang="lv" lang="lv">LV</a></nav>
 <h1>Проверка утверждения за пять минут</h1>
-<p class="lead">Как пользоваться:<br>1. Вставь утверждение в поле ниже.<br>2. Выполни каждый шаг сам (где есть ссылка, она откроет поиск). Запиши в поле, что нашёл, и поставь галочку.<br>3. Внизу выбери, насколько ты теперь веришь, и скопируй итог.<br>Страница ничего не отправляет и не хранит.</p>
-
-<textarea id="claim" placeholder="Например: «Учёные доказали, что …»" aria-label="Утверждение"></textarea>
-
-<div id="steps"></div>
-
+<p class="lead">Как пользоваться:<br>1. Вставь утверждение в поле ниже.<br>2. Выполни каждый шаг сам (где есть ссылка, она откроет поиск). Запиши в поле, что нашёл, и поставь галочку.<br>3. Внизу выбери, насколько ты теперь веришь, и скопируй итог.<br>Введённый текст не отправляется и не сохраняется. Сайт лишь считает визиты (без cookies).</p>
+<textarea id="claim" placeholder="Например: «Учёные доказали, что …»" aria-label="Проверка утверждения за пять минут"></textarea>
+<div id="steps">
+<div class="step"><label><input type="checkbox"><div><b>Найди первоисточник</b><span>Исследование, документ, запись выступления. Не «пишут, что…». Нет ссылки на источник — тревожный знак. <a href="#" data-q="1">Искать источник</a></span></div></label><input type="text" class="note" placeholder="Что нашёл? (необязательно)" aria-label="Найди первоисточник"></div>
+<div class="step"><label><input type="checkbox"><div><b>Проверь, что там сказано на самом деле</b><span>Заголовок часто громче текста. Смотри размер выборки, дату, оговорки.</span></div></label><input type="text" class="note" placeholder="Что нашёл? (необязательно)" aria-label="Проверь, что там сказано на самом деле"></div>
+<div class="step"><label><input type="checkbox"><div><b>Спроси, кому это выгодно</b><span>Не чтобы отмахнуться, а чтобы понять, что могли приукрасить.</span></div></label><input type="text" class="note" placeholder="Что нашёл? (необязательно)" aria-label="Спроси, кому это выгодно"></div>
+<div class="step"><label><input type="checkbox"><div><b>Поищи опровержение</b><span>Ищи не подтверждения, а «не работает», «критика», «фейк». <a href="#" data-q="2">Искать опровержение</a></span></div></label><input type="text" class="note" placeholder="Что нашёл? (необязательно)" aria-label="Поищи опровержение"></div>
+<div class="step"><label><input type="checkbox"><div><b>Заметь свою реакцию</b><span>Сильная радость или злость — повод проверить строже. Утверждение могли писать ради этой эмоции.</span></div></label><input type="text" class="note" placeholder="Что нашёл? (необязательно)" aria-label="Заметь свою реакцию"></div>
+<div class="step"><label><input type="checkbox"><div><b>Оцени уверенность честно</b><span>Подвинь ползунок ниже. 100% и 0% почти никогда не бывают честными.</span></div></label><input type="text" class="note" placeholder="Что нашёл? (необязательно)" aria-label="Оцени уверенность честно"></div>
+</div>
 <div class="gauge">
   <label for="conf"><b>Итог: насколько ты теперь веришь утверждению?</b><br><span style="color:var(--mute);font-size:.94rem">Подвинь ползунок после того, как прошёл шаги.</span></label>
   <input id="conf" type="range" min="0" max="100" value="50">
@@ -52,59 +62,46 @@ footer{margin-top:30px;color:var(--mute);font-size:.88rem}
   <button id="copy">Скопировать итог</button>
   <button id="reset" style="margin-left:8px">Начать заново</button>
 </div>
-
 <footer>Не «правда или ложь», а «на сколько процентов я верю, пока нет новых данных».</footer>
 </main>
 <script>
-const S=[
-["Найди первоисточник","Исследование, документ, запись выступления. Не «пишут, что…». Нет ссылки на источник — тревожный знак.",(c)=>"https://www.google.com/search?q="+encodeURIComponent(c+" источник исследование"),"Искать источник"],
-["Проверь, что там сказано на самом деле","Заголовок часто громче текста. Смотри размер выборки, дату, оговорки.",null],
-["Спроси, кому это выгодно","Не чтобы отмахнуться, а чтобы понять, что могли приукрасить.",null],
-["Поищи опровержение","Ищи не подтверждения, а «не работает», «критика», «фейк».",(c)=>"https://www.google.com/search?q="+encodeURIComponent(c+" критика опровержение"),"Искать опровержение"],
-["Заметь свою реакцию","Сильная радость или злость — повод проверить строже. Утверждение могли писать ради этой эмоции.",null],
-["Оцени уверенность честно","Подвинь ползунок ниже. 100% и 0% почти никогда не бывают честными.",null]
-];
-const box=document.getElementById('steps'),claim=document.getElementById('claim');
-const boxes=[],notes=[];
-S.forEach((s,i)=>{
-  const d=document.createElement('div');d.className='step';
-  const l=document.createElement('label');
-  const cb=document.createElement('input');cb.type='checkbox';
-  const t=document.createElement('div');
-  t.innerHTML='<b>'+s[0]+'</b><span>'+s[1]+'</span>';
-  if(s[2]){const a=document.createElement('a');a.target='_blank';a.rel='noopener';a.textContent=' '+s[3];a.href='#';
-    a.addEventListener('click',e=>{e.preventDefault();const c=claim.value.trim();if(!c){claim.focus();claim.placeholder='Сначала вставь утверждение';return}window.open(s[2](c),'_blank','noopener')});
-    t.querySelector('span').appendChild(a);}
-  cb.addEventListener('change',()=>{d.classList.toggle('done',cb.checked);upd()});
-  l.append(cb,t);d.append(l);
-  const nt=document.createElement('input');nt.type='text';nt.className='note';nt.placeholder='Что нашёл? (необязательно)';nt.setAttribute('aria-label','Заметка к шагу: '+s[0]);
-  d.append(nt);notes.push(nt);
-  box.append(d);boxes.push(cb);
-});
-const conf=document.getElementById('conf');
+const L={"ph": "Например: «Учёные доказали, что …»", "nph": "Что нашёл? (необязательно)", "gh": "Итог: насколько ты теперь веришь утверждению?", "gs": "Подвинь ползунок после того, как прошёл шаги.", "copy": "Скопировать итог", "reset": "Начать заново", "foot": "Не «правда или ложь», а «на сколько процентов я верю, пока нет новых данных».", "vo": "Слишком уверенно. Что могло бы тебя переубедить?", "vh": "Скорее верю. Готов изменить мнение при новых данных.", "vm": "Не знаю. Это тоже нормальный ответ.", "vl": "Скорее не верю. Не пересылай, пока не найдёшь подтверждение.", "prog": "Пройдено шагов: {n} из {t}", "pall": "Все шаги пройдены: теперь выбери уверенность и скопируй итог.", "pfew": "Для такой уверенности проверок маловато.", "copied": "Скопировано", "cfail": "Не удалось скопировать", "need": "Сначала вставь утверждение", "cl": "Утверждение", "cf": "Уверенность", "q1": "источник исследование", "q2": "критика опровержение", "lang": "ru", "root": true, "base": "/proverka/"};
+let go=false;
+document.querySelectorAll('.lang a').forEach(a=>a.addEventListener('click',()=>{try{sessionStorage.setItem('lng','1')}catch(e){}}));
+if(L.root){let seen=null;try{seen=sessionStorage.getItem('lng')}catch(e){}
+  const n=(navigator.language||'').slice(0,2);
+  if(!seen&&(n==='en'||n==='lv')){go=true;location.replace(L.base+n+'/')}}
+if(!go){try{new Image().src='https://tally.yuki.sh/hits/github@Splendor1980/proverka-'+L.lang+'.svg'}catch(e){}}
+const claim=document.getElementById('claim'),conf=document.getElementById('conf');
+const boxes=[...document.querySelectorAll('.step input[type=checkbox]')],notes=[...document.querySelectorAll('.note')];
+const titles=[...document.querySelectorAll('.step > label b')].map(b=>b.textContent);
+document.querySelectorAll('a[data-q]').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();const c=claim.value.trim();
+  if(!c){claim.focus();claim.placeholder=L.need;return}
+  window.open('https://www.google.com/search?q='+encodeURIComponent(c+' '+L['q'+a.dataset.q]),'_blank','noopener');
+}));
+boxes.forEach(b=>b.addEventListener('change',()=>{b.closest('.step').classList.toggle('done',b.checked);upd()}));
 function upd(){
   const n=boxes.filter(b=>b.checked).length,v=+conf.value;
   document.getElementById('pct').textContent=v;
-  let m;
-  if(v>=95||v<=5)m='Слишком уверенно. Что могло бы тебя переубедить?';
-  else if(v>=70)m='Скорее верю. Готов изменить мнение при новых данных.';
-  else if(v>=35)m='Не знаю. Это тоже нормальный ответ.';
-  else m='Скорее не верю. Не пересылай, пока не найдёшь подтверждение.';
-  document.getElementById('verdict').textContent=m;
-  document.getElementById('progress').textContent='Пройдено шагов: '+n+' из '+boxes.length+(n===boxes.length?'. Все шаги пройдены: теперь выбери уверенность и скопируй итог.':(n<4&&(v>=80||v<=20)?'. Для такой уверенности проверок маловато.':'.'));
+  document.getElementById('verdict').textContent=(v>=95||v<=5)?L.vo:v>=70?L.vh:v>=35?L.vm:L.vl;
+  let p=L.prog.replace('{n}',n).replace('{t}',boxes.length);
+  if(n===boxes.length)p+='. '+L.pall;else if(n<4&&(v>=80||v<=20))p+='. '+L.pfew;
+  document.getElementById('progress').textContent=p;
 }
 conf.addEventListener('input',upd);upd();
 document.getElementById('reset').addEventListener('click',()=>{
-  claim.value='';conf.value=50;
-  notes.forEach(n=>n.value='');boxes.forEach(b=>{b.checked=false;b.closest('.step').classList.remove('done')});
-  document.getElementById('copy').textContent='Скопировать итог';
+  claim.value='';conf.value=50;notes.forEach(n=>n.value='');
+  boxes.forEach(b=>{b.checked=false;b.closest('.step').classList.remove('done')});
+  document.getElementById('copy').textContent=L.copy;
   upd();window.scrollTo({top:0});claim.focus();
 });
 document.getElementById('copy').addEventListener('click',e=>{
-  const lines=S.map((x,i)=>notes[i].value.trim()?('- '+x[0]+': '+notes[i].value.trim()):null).filter(Boolean);
-  const txt='Утверждение: '+(claim.value.trim()||'—')+'\n'+lines.join('\n')+(lines.length?'\n':'')+'Уверенность: '+conf.value+'%\nПройдено шагов: '+boxes.filter(b=>b.checked).length+' из '+boxes.length;
-  try{navigator.clipboard.writeText(txt);e.target.textContent='Скопировано'}catch(x){e.target.textContent='Не удалось скопировать'}
+  const lines=titles.map((t,i)=>notes[i].value.trim()?'- '+t+': '+notes[i].value.trim():null).filter(Boolean);
+  const txt=L.cl+': '+(claim.value.trim()||'—')+'\n'+lines.join('\n')+(lines.length?'\n':'')+L.cf+': '+conf.value+'%\n'+L.prog.replace('{n}',boxes.filter(b=>b.checked).length).replace('{t}',boxes.length);
+  try{navigator.clipboard.writeText(txt);e.target.textContent=L.copied}catch(x){e.target.textContent=L.cfail}
 });
+
 </script>
 </body>
 </html>
